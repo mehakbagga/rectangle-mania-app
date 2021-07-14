@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/form.css">
+
+</head>
+<body>
+    <h2>Enter your legendary rectangle!</h2>
+    <div id="container">
+    <form action="#"method="post"th:action="@{/rectangles}" th:object="${rectangles}">
+    <label for="name">Name:  </label>
+    <input type="text" th:field=*{name} id ="name"> <br>
+    <label for="color">Color: </label>
+    <input type="text" th:field=*{color} id = "color"> <br>
+    <label for="height">Height:</label>
+    <input type="number" th:field=*{height} id="height" > <br>
+    <label for="width">Width: </label>
+    <input type="number" th:field=*{width} id="width"> <br>
+    <button type="Submit">Add Rectangle</button>
+</form>
+</div>
+<canvas id="canvas" width=1000 height=1000 ></canvas>
+
+<script>
+    var canvas=document.getElementById("canvas");
+    var ctx=canvas.getContext("2d");
+
+    var width=0;
+    var height=0;
+    var name = "Default";
+    var color = 'red';
+    
+
+    // var name = document.getElementById("name").value;
+    // ctx.fillText(canvas.name, 10, 50);
+
+    $width = document.getElementById('width');
+    $height = document.getElementById('height');
+    $name = document.getElementById("name"); 
+    $color = document.getElementById("color");
+    
+    $width.value = width;
+    $height.value = height;
+    $name.value = name;
+    $color.value = color;
+        
+    draw();
+    
+    $width.addEventListener("keyup", function(){
+        width=this.value;
+        draw();
+    }, false);
+    
+    $height.addEventListener("keyup", function(){
+        height=this.value;
+        draw();
+    }, false);
+
+    $name.addEventListener("keyup", function(){
+        name = this.value;
+        draw();
+    }, false);
+
+    $color.addEventListener("keyup", function(){
+        color = this.value;
+        draw();
+    },false);
+    
+    function draw(){
+        //For rectangle
+        ctx.fillStyle = color;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillRect(50,50,width,height);
+
+        //For name in canvas
+        if(width <= 500){
+            ctx.font = "bold 15px Arial";
+        } else {
+            ctx.font = "bold 30px Arial";
+        }
+        ctx.fillStyle="black";
+        ctx.fillText(name,width/2 + 25, height/2 + 50);
+    }
+    
+
+    
+ </script>
+       
+   
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Display</title>
+<link rel="stylesheet" type="text/css" href="/stylesheets/display.css">
+</head>
+<body>
+    <h2 id='heading'></h2>
+    <div class = "container">
+        <table id='tableId'>
+            <tr th:each="rec:${rect}">
+                <td>Name</td>
+                <td id="name" th:text="${rec.key}"></td>
+                </tr>
+                <tr th:each="rec:${rect}">
+                    <td>Color</td>
+                <td id ='color' th:text="${rec.value.get(0)}"></td>
+                </tr>
+                <tr th:each="rec:${rect}">
+                    <td>Width</td>
+                <td id="width" th:text="${rec.value.get(1)}"></td>
+                </tr>
+                <tr th:each="rec:${rect}">
+                    <td>Height</td>
+                <td id="height" th:text="${rec.value.get(2)}"></td>
+                </tr>
+        </table>
+        <a th:href="@{/rectangles/view}"><button class='button'>Return</button></a>
+        </div>
+        <canvas id="canvas" width=1000 height=1000 ></canvas>
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script>
+             $( document ).ready(function() {
+                 console.log( "document loaded" );
+             });
+ 
+            $( window ).on( "load", function() {
+                console.log( "window loaded" );
+                var canvas = document.getElementById("canvas");
+                var ctx = canvas.getContext("2d");
+                var width = parseInt(document.getElementById("width").innerText);
+                var height = parseInt(document.getElementById("height").innerText);
+                var name = document.getElementById("name").innerText; 
+                var color = document.getElementById("color").innerText;
+                console.log(width, height, name, color);
+
+                document.getElementById('heading').innerHTML = name + "'s" + " Display Page!";
+
+                //For rectangle
+                ctx.fillStyle = color;
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                ctx.fillRect(50,50, width, height);
+
+                //For name in canvas
+                if(width <= 500){
+                    ctx.font = "bold 15px Arial";
+                } else {
+                    ctx.font = "bold 30px Arial";
+                }
+                ctx.fillStyle="black";
+                ctx.fillText(name,width/2 + 25, height/2 + 50);
+            });
+        </script>
+</body> 
+</html>
